@@ -262,8 +262,9 @@
 </footer>
 
 <script>
-  // City Video Map matched directly with files in GitHub root
+  // City Video Map including Bangalore and all uploaded root filenames
   const cityReels = {
+    'bangalore': 'rapido_changanassery_7s_v1.mp4',
     'changanassery': 'rapido_changanassery_7s_v1.mp4',
     'chavakkad': 'rapido_chavakkad_7s_v1.mp4',
     'gangapurcity': 'rapido_gangapur_city_7s_v1.mp4',
@@ -282,13 +283,13 @@
     const urlParams = new URLSearchParams(window.location.search);
     let city = urlParams.get('city');
 
-    if (!city) return 'default';
+    if (!city) return 'bangalore';
 
-    // Cleans spaces/special characters for flexible parameter matching
+    // Cleans up incoming city parameter string
     city = decodeURIComponent(city).toLowerCase().replace(/[^a-z0-9]/g, '').trim();
 
     if (city === '' || city === 'null' || city.includes('@') || city.includes('{')) {
-      return 'default';
+      return 'bangalore';
     }
 
     return city;
