@@ -165,14 +165,14 @@
       
       <div class="city-download">
         <div class="sample-frame">
-          <video id="cityVideo" class="sample-video" controls playsinline preload="auto">
+          <video id="cityVideo" class="sample-video" controls playsinline preload="auto" crossorigin="anonymous">
             <source id="cityVideoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
         <div class="city-download-info">
           <p>Download this video and share it on instagram and submit your link below</p>
-          <a id="downloadBtn" href="#" class="btn" download>Download Video</a>
+          <a id="downloadBtn" href="#" class="btn" target="_blank" download>Download Video</a>
         </div>
       </div>
     </div>
@@ -262,21 +262,23 @@
 </footer>
 
 <script>
-  // City Video Map including Bangalore and all uploaded root filenames
+  // Direct Archive.org hosted video files mapping
   const cityReels = {
-    'bangalore': 'rapido_changanassery_7s_v1.mp4',
-    'changanassery': 'rapido_changanassery_7s_v1.mp4',
-    'chavakkad': 'rapido_chavakkad_7s_v1.mp4',
-    'gangapurcity': 'rapido_gangapur_city_7s_v1.mp4',
-    'jalore': 'rapido_jalore_7s_v1.mp4',
-    'kollam': 'rapido_kollam_7s_v1.mp4',
-    'krishnagiri': 'rapido_krishnagiri_7s_v1.mp4',
-    'lakhisarai': 'rapido_lakhisarai_7s_v1.mp4',
-    'lumding': 'rapido_lumding_7s_v1.mp4',
-    'masaurhi': 'rapido_masaurhi_7s_v1.mp4',
-    'nagina': 'rapido_nagina_7s_v1.mp4',
-    'ponnur': 'rapido_ponnur_7s_v1.mp4',
-    'default': 'rapido_changanassery_7s_v1.mp4'
+    'bangalore': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_bengaluru_7s_v1.mp4',
+    'bengaluru': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_bengaluru_7s_v1.mp4',
+    'changanassery': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_changanassery_7s_v1.mp4',
+    'chavakkad': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_chavakkad_7s_v1.mp4',
+    'gangapurcity': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_gangapur_city_7s_v1.mp4',
+    'jalore': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_jalore_7s_v1.mp4',
+    'kollam': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_kollam_7s_v1.mp4',
+    'krishnagiri': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_krishnagiri_7s_v1.mp4',
+    'lakhisarai': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_lakhisarai_7s_v1.mp4',
+    'lumding': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_lumding_7s_v1.mp4',
+    'masaurhi': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_masaurhi_7s_v1.mp4',
+    'nagina': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_nagina_7s_v1.mp4',
+    'ponnur': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_ponnur_7s_v1.mp4',
+    'tenkasi': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_tenkasi_7s_v1.mp4',
+    'default': 'https://archive.org/download/rapido_tenkasi_7s_v1/rapido_bengaluru_7s_v1.mp4'
   };
 
   function getCityFromURL() {
@@ -285,7 +287,7 @@
 
     if (!city) return 'bangalore';
 
-    // Cleans up incoming city parameter string
+    // Normalizes input string (lowercases & strips whitespace/special chars)
     city = decodeURIComponent(city).toLowerCase().replace(/[^a-z0-9]/g, '').trim();
 
     if (city === '' || city === 'null' || city.includes('@') || city.includes('{')) {
