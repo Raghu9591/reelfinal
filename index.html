@@ -137,9 +137,9 @@
 <body>
 
 <main>
-  <!-- Card Header Banner (Using hosted CDN URL) -->
+  <!-- Card Header Banner -->
   <div class="campaign-banner">
-    <img id="bannerImg" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="Rapido City Stars">
+    <img src="Screenshot 2026-09-09 at 1.04.16 PM.jpg" alt="Rapido City Stars">
   </div>
 
   <!-- Hero Section -->
@@ -165,14 +165,14 @@
       
       <div class="city-download">
         <div class="sample-frame">
-          <video id="cityVideo" class="sample-video" controls playsinline preload="auto" crossorigin="anonymous">
+          <video id="cityVideo" class="sample-video" controls playsinline preload="auto">
             <source id="cityVideoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
         <div class="city-download-info">
-          <p>Download this video and share iit on instagram and submit your link below</p>
-          <a id="downloadBtn" href="#" class="btn" target="_blank" download>Download Video</a>
+          <p>Download this video and share it on instagram and submit your link below</p>
+          <a id="downloadBtn" href="#" class="btn" download>Download Video</a>
         </div>
       </div>
     </div>
@@ -262,27 +262,33 @@
 </footer>
 
 <script>
-  // Dynamic City Video Map using full CDN HTTPS URLs to ensure WebView streaming
+  // City Video Map matched directly with files in GitHub root
   const cityReels = {
-    'bangalore': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    'hyderabad': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    'delhi': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-    'mumbai': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-    'chennai': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-    'default': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+    'changanassery': 'rapido_changanassery_7s_v1.mp4',
+    'chavakkad': 'rapido_chavakkad_7s_v1.mp4',
+    'gangapurcity': 'rapido_gangapur_city_7s_v1.mp4',
+    'jalore': 'rapido_jalore_7s_v1.mp4',
+    'kollam': 'rapido_kollam_7s_v1.mp4',
+    'krishnagiri': 'rapido_krishnagiri_7s_v1.mp4',
+    'lakhisarai': 'rapido_lakhisarai_7s_v1.mp4',
+    'lumding': 'rapido_lumding_7s_v1.mp4',
+    'masaurhi': 'rapido_masaurhi_7s_v1.mp4',
+    'nagina': 'rapido_nagina_7s_v1.mp4',
+    'ponnur': 'rapido_ponnur_7s_v1.mp4',
+    'default': 'rapido_changanassery_7s_v1.mp4'
   };
 
   function getCityFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     let city = urlParams.get('city');
 
-    if (!city) return 'bangalore';
+    if (!city) return 'default';
 
-    // Cleans up incoming city parameters, spaces, and CleverTap tags
-    city = decodeURIComponent(city).toLowerCase().replace(/\s+/g, '').trim();
+    // Cleans spaces/special characters for flexible parameter matching
+    city = decodeURIComponent(city).toLowerCase().replace(/[^a-z0-9]/g, '').trim();
 
     if (city === '' || city === 'null' || city.includes('@') || city.includes('{')) {
-      return 'bangalore';
+      return 'default';
     }
 
     return city;
