@@ -137,9 +137,9 @@
 <body>
 
 <main>
-  <!-- Card Header Banner -->
+  <!-- Card Header Banner (Using hosted CDN URL) -->
   <div class="campaign-banner">
-    <img src="Screenshot 2026-09-09 at 1.04.16 PM.jpg" alt="Rapido City Stars - Unleash Your Creativity & Win Rs. 1000!">
+    <img id="bannerImg" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=80" alt="Rapido City Stars">
   </div>
 
   <!-- Hero Section -->
@@ -165,14 +165,14 @@
       
       <div class="city-download">
         <div class="sample-frame">
-          <video id="cityVideo" class="sample-video" controls playsinline preload="auto">
+          <video id="cityVideo" class="sample-video" controls playsinline preload="auto" crossorigin="anonymous">
             <source id="cityVideoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
         <div class="city-download-info">
           <p>Download this video and share iit on instagram and submit your link below</p>
-          <a id="downloadBtn" href="#" class="btn" download>Download Video</a>
+          <a id="downloadBtn" href="#" class="btn" target="_blank" download>Download Video</a>
         </div>
       </div>
     </div>
@@ -262,24 +262,23 @@
 </footer>
 
 <script>
-  // Dynamic City Video File Map
+  // Dynamic City Video Map using full CDN HTTPS URLs to ensure WebView streaming
   const cityReels = {
-    'bangalore': 'reels/bangalore.mp4',
-    'hyderabad': 'reels/hyderabad.mp4',
-    'delhi': 'reels/delhi.mp4',
-    'mumbai': 'reels/mumbai.mp4',
-    'chennai': 'reels/chennai.mp4',
-    'default': 'reels/bangalore.mp4'
+    'bangalore': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'hyderabad': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    'delhi': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    'mumbai': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    'chennai': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    'default': 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
   };
 
-  // Extracts city from URL parameter ?city=...
   function getCityFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     let city = urlParams.get('city');
 
     if (!city) return 'bangalore';
 
-    // Cleans up incoming city string (handles spaces, encoding, special chars from CleverTap)
+    // Cleans up incoming city parameters, spaces, and CleverTap tags
     city = decodeURIComponent(city).toLowerCase().replace(/\s+/g, '').trim();
 
     if (city === '' || city === 'null' || city.includes('@') || city.includes('{')) {
@@ -289,7 +288,6 @@
     return city;
   }
 
-  // Updates video player and download link dynamically
   function setupCityReel() {
     const city = getCityFromURL();
     const videoSrc = cityReels[city] || cityReels['default'];
