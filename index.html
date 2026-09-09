@@ -165,7 +165,7 @@
       
       <div class="city-download">
         <div class="sample-frame">
-          <video id="cityVideo" class="sample-video" controls poster="">
+          <video id="cityVideo" class="sample-video" controls playsinline preload="auto">
             <source id="cityVideoSource" src="" type="video/mp4">
             Your browser does not support the video tag.
           </video>
@@ -262,24 +262,34 @@
 </footer>
 
 <script>
-  // City Video File Path Configuration
+  // Dynamic City Video File Map
   const cityReels = {
     'bangalore': 'reels/bangalore.mp4',
     'hyderabad': 'reels/hyderabad.mp4',
     'delhi': 'reels/delhi.mp4',
     'mumbai': 'reels/mumbai.mp4',
     'chennai': 'reels/chennai.mp4',
-    'default': 'reels/default.mp4'
+    'default': 'reels/bangalore.mp4'
   };
 
-  // URL Parameter Extraction (?city=cityname)
+  // Extracts city from URL parameter ?city=...
   function getCityFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    const city = urlParams.get('city');
-    return city ? city.toLowerCase().trim() : 'default';
+    let city = urlParams.get('city');
+
+    if (!city) return 'bangalore';
+
+    // Cleans up incoming city string (handles spaces, encoding, special chars from CleverTap)
+    city = decodeURIComponent(city).toLowerCase().replace(/\s+/g, '').trim();
+
+    if (city === '' || city === 'null' || city.includes('@') || city.includes('{')) {
+      return 'bangalore';
+    }
+
+    return city;
   }
 
-  // Dynamic Video & Download Setup
+  // Updates video player and download link dynamically
   function setupCityReel() {
     const city = getCityFromURL();
     const videoSrc = cityReels[city] || cityReels['default'];
@@ -299,7 +309,6 @@
     }
   }
 
-  // Handle Form Submission
   document.addEventListener('DOMContentLoaded', () => {
     setupCityReel();
 
